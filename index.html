@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8e9" />
+    <meta
+      name="description"
+      content="مغامرات الحروف العربية، رحلة ممتعة لتعلم الحروف والحركات والقراءة والكتابة للأطفال."
+    />
+    <title>مغامرات الحروف العربية | هيا نتعلم ونلعب</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .level-card {
+        background: linear-gradient(135deg, #5546d8, #8b65e8);
+        color: white;
+        padding: 28px;
+        border-radius: 24px;
+        margin: 25px 0;
+        box-shadow: 0 10px 30px #5546d830;
+      }
+
+      .level-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .level-title {
+        font-size: 23px;
+        font-weight: 900;
+      }
+
+      .level-emoji {
+        font-size: 48px;
+      }
+
+      .level-progress {
+        background: #ffffff45;
+        height: 14px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin: 20px 0 10px;
+      }
+
+      .level-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: #ffe16b;
+        border-radius: 20px;
+        transition: width 0.5s ease;
+      }
+
+      .level-details {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 14px;
+        flex-wrap: wrap;
+      }
+
+      .level-next {
+        margin-top: 14px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🌈</span>
+        <span>مغامرات الحروف</span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html" class="active">الرئيسية</a>
+        <a href="pages/letters.html">الحروف</a>
+        <a href="pages/games.html">الألعاب</a>
+        <a href="pages/achievements.html">إنجازاتي</a>
+      </nav>
+
+      <div class="header-stars">⭐ <span id="headerPoints">0</span></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <span class="welcome-label">✨ عالم مليء بالمرح والتعلم</span>
+
+          <h1>
+            مرحباً بك في
+            <span>مغامرات الحروف العربية!</span>
+          </h1>
+
+          <p>
+            استعد لرحلة ممتعة نتعرف فيها على الحروف العربية، ونتعلم الحركات،
+            ونلعب ألعاباً رائعة!
+          </p>
+
+          <div class="hero-buttons">
+            <a href="pages/letters.html" class="btn btn-primary">
+              🚀 ابدأ المغامرة
+            </a>
+
+            <a href="pages/games.html" class="btn btn-secondary">
+              🎮 العب الآن
+            </a>
+          </div>
+
+          <div class="hero-features">
+            <span>⭐ تعلم</span>
+            <span>🎨 العب</span>
+            <span>🏆 اجمع النجوم</span>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <div class="floating-letter letter-one">بَ</div>
+          <div class="floating-letter letter-two">مُ</div>
+          <div class="floating-letter letter-three">تِ</div>
+
+          <div class="mascot-circle">  <img
+              src="assets/images/robot.png"
+              alt="روبوت مغامرات الحروف"
+              onerror="
+                this.style.display = 'none';
+                this.parentElement.classList.add('image-missing');
+                this.parentElement.insertAdjacentText('beforeend', '🤖');
+              "
+            />
+          </div>
+
+          <div class="mascot-caption">
+            <strong>مرحباً يا صديقي!</strong>
+            <span>هل أنت مستعد للتعلم؟</span>
+          </div>
+
+          <span class="decoration decoration-one">⭐</span>
+          <span class="decoration decoration-two">🌟</span>
+          <span class="decoration decoration-three">🎈</span>
+        </div>
+      </section>
+
+      <section class="welcome-section">
+        <div class="section-heading">
+          <span class="section-label">📚 هيا نبدأ</span>
+          <h2>اختر مغامرتك القادمة</h2>
+          <p>هناك الكثير من الأشياء الممتعة في انتظارك!</p>
+        </div>
+
+        <div class="adventure-grid">
+          <a href="pages/letters.html" class="adventure-card card-blue">
+            <div class="card-icon">🔤</div>
+            <h3>تعلم الحروف</h3>
+            <p>اكتشف الحروف العربية وتعرف على أشكالها وأصواتها.</p>
+            <span class="card-link">ابدأ التعلم ←</span>
+          </a>
+
+          <a href="pages/fatha.html" class="adventure-card card-orange">
+            <div class="card-icon">🟠</div>
+            <h3>حركة الفتحة</h3>
+            <p>تعلم نطق الحروف مع حركة الفتحة.</p>
+            <span class="card-link">هيا نتعلم ←</span>
+          </a>
+
+          <a href="pages/kasra.html" class="adventure-card card-purple">
+            <div class="card-icon">💜</div>
+            <h3>حركة الكسرة</h3>
+            <p>اكتشف الحروف مع حركة الكسرة.</p>
+            <span class="card-link">هيا نتعلم ←</span>
+          </a>
+
+          <a href="pages/damma.html" class="adventure-card card-green">
+            <div class="card-icon">🌱</div>
+            <h3>حركة الضمة</h3>
+            <p>تعلم نطق الحروف مع حركة الضمة.</p>
+            <span class="card-link">هيا نتعلم ←</span>
+          </a>
+
+          <a href="pages/writing.html" class="adventure-card card-pink">
+            <div class="card-icon">✏️</div>
+            <h3>تعلم الكتابة</h3>
+            <p>شاهد طريقة كتابة الحروف وتدرب بنفسك.</p>
+            <span class="card-link">ابدأ الكتابة ←</span>
+          </a>
+
+          <a href="pages/games.html" class="adventure-card card-yellow">
+            <div class="card-icon">🎮</div>
+            <h3>مدينة الألعاب</h3>
+            <p>العب وتحدى نفسك واجمع المزيد من النجوم.</p>
+            <span class="card-link">العب الآن ←</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="progress-section">
+        <div class="level-card">
+          <div class="level-top">
+            <div>
+              <div>🏆 مستواك الحالي</div>
+              <div class="level-title" id="levelName">مستكشف الحروف</div>
+            </div>
+
+            <div class="level-emoji" id="levelEmoji">🌱</div>
+          </div>
+
+          <div class="level-progress">
+            <div class="level-progress-fill" id="levelProgressFill"></div>
+          </div>
+
+          <div class="level-details">
+            <span id="currentPoints">0 نقطة</span>
+            <span id="nextLevelPoints">50 نقطة للمستوى التالي</span>
+          </div>
+
+          <div class="level-next" id="nextLevelName">
+            المستوى القادم: متعلم نشيط ⭐
+          </div>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-icon">🏆</div>
+
+          <div class="progress-content">
+            <h2>رحلتك بدأت للتو!</h2>
+            <p>تعلم الحروف واجمع النجوم وافتح مغامرات جديدة.</p>
+          </div>
+
+          <div class="progress-stars">
+            <strong id="totalPoints">0</strong>
+            <span>⭐ نجمة</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-logo">🌈 مغامرات الحروف العربية</div>
+      <p>نتعلم ونلعب ونكتشف عالم الحروف معاً ❤️</p>
+      <span>جميع الحقوق محفوظة © 2026</span>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+    <script>
+      function renderLevel() {
+        const progress = AdventureApp.getProgress();
+        const points = progress.points;
+
+        const current = AdventureApp.getLevel(points);
+        const next = AdventureApp.getNextLevel(points);
+
+        document.getElementById("levelName").textContent = current.name;
+        document.getElementById("levelEmoji").textContent = current.emoji;
+
+        document.getElementById("currentPoints").textContent = points + " نقطة";
+
+        document.getElementById("totalPoints").textContent = points;
+        document.getElementById("headerPoints").textContent = points;
+
+        const progressFill = document.getElementById("levelProgressFill");
+
+        if (next) {
+          const percentage =
+            ((points - current.min) / (next.min - current.min)) * 100;
+
+          progressFill.style.width = Math.min(100, percentage) + "%";
+
+          document.getElementById("nextLevelPoints").textContent =
+            next.min + " نقطة للمستوى التالي";
+
+          document.getElementById("nextLevelName").textContent =
+            "المستوى القادم: " + next.name + " " + next.emoji;
+        } else {
+          progressFill.style.width = "100%";
+
+          document.getElementById("nextLevelPoints").textContent =
+            "وصلت إلى أعلى مستوى!";
+
+          document.getElementById("nextLevelName").textContent =
+            "👑 أنت أسطورة الحروف!";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", renderLevel);
+    </script>
+  </body>
+</html>

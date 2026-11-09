@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مدينة الألعاب | مغامرات الحروف</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Cairo", sans-serif;
+        background: #f3f7ff;
+        color: #26334a;
+        margin: 0;
+      }
+
+      .game-page {
+        max-width: 950px;
+        margin: auto;
+        padding: 30px 18px;
+      }
+
+      .back-button {
+        display: inline-block;
+        background: #5546d8;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 13px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .heading {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .heading h1 {
+        color: #5546d8;
+        font-size: 38px;
+      }
+
+      .game-card {
+        background: white;
+        border-radius: 25px;
+        padding: 28px;
+        text-align: center;
+        box-shadow: 0 5px 20px #26334a12;
+      }
+
+      .mascot {
+        font-size: 75px;
+        margin: 10px;
+      }
+
+      .score {
+        background: #fff3d9;
+        color: #bd7814;
+        padding: 10px 20px;
+        border-radius: 15px;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .word {
+        font-size: 35px;
+        color: #5546d8;
+        font-weight: 900;
+        margin: 20px 0;
+      }
+
+      .speak-button {
+        background: #fff3d9;
+        color: #bd7814;
+        border: 2px solid #ffd77a;
+        border-radius: 14px;
+        padding: 10px 20px;
+        font-family: inherit;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 15px;
+      }
+
+      .speak-button:hover {
+        background: #ffe6ad;
+        transform: scale(1.04);
+      }
+
+      .question {
+        font-size: 21px;
+        font-weight: bold;
+      }
+
+      .options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        gap: 15px;
+        max-width: 450px;
+        margin: 25px auto;
+      }
+
+      .option {
+        background: #eef0ff;
+        border: 3px solid transparent;
+        border-radius: 18px;
+        color: #5546d8;
+        font-family: inherit;
+        font-size: 42px;
+        font-weight: 900;
+        padding: 15px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .option:hover:not(:disabled) {
+        border-color: #5546d8;
+        transform: translateY(-3px);
+      }
+
+      .option:disabled {
+        cursor: default;
+        opacity: 0.85;
+      }
+
+      .option.correct-answer {
+        background: #d9f8e9;
+        border-color: #16a879;
+        color: #13865f;
+      }
+
+      .option.wrong-answer {
+        background: #ffe4e4;
+        border-color: #e07838;
+        color: #c64c4c;
+      }
+
+      .feedback {
+        min-height: 35px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .next-button {
+        background: #16a879;
+        color: white;
+        border: 0;
+        padding: 13px 28px;
+        border-radius: 14px;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .next-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .progress {
+        color: #778398;
+        margin: 15px;
+      }
+
+      @media (max-width: 500px) {
+        .game-card {
+          padding: 18px;
+        }
+
+        .heading h1 {
+          font-size: 29px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="game-page">
+      <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+
+      <header class="heading">
+        <h1>🎮 مدينة الألعاب</h1>
+        <p>استعد للتحدي واجمع أكبر عدد من النجوم!</p>
+      </header>
+
+      <section class="game-card">
+        <div class="mascot">🤖</div>
+
+        <div class="score">⭐ نقاطك: <span id="score">0</span></div>
+
+        <p class="progress" id="progress">السؤال 1 من 10</p>
+
+        <h2 class="question">ما أول حرف في هذه الكلمة؟</h2>
+
+        <div class="word" id="word">أسد</div>
+
+        <button class="speak-button" id="speakButton">🔊 اسمع الكلمة</button>
+
+        <div class="options" id="options"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button class="next-button" id="nextButton" disabled>
+          السؤال التالي
+        </button>
+      </section>
+    </main>
+
+    <script src="../js/main.js"></script>
+
+    <script>
+      const questions = [
+        { word: "أسد", answer: "أ", options: ["أ", "ب", "ت", "ج"] },
+        { word: "بطة", answer: "ب", options: ["س", "ب", "م", "ن"] },
+        { word: "تفاحة", answer: "ت", options: ["ت", "ج", "ح", "خ"] },
+        { word: "جمل", answer: "ج", options: ["د", "ذ", "ج", "ر"] },
+        { word: "سمكة", answer: "س", options: ["ش", "ص", "س", "ض"] },
+        { word: "قمر", answer: "ق", options: ["ف", "ق", "ك", "ل"] },
+        { word: "موز", answer: "م", options: ["ن", "هـ", "م", "و"] },
+        { word: "نحلة", answer: "ن", options: ["ي", "ب", "ت", "ن"] },
+        { word: "وردة", answer: "و", options: ["ر", "ز", "و", "د"] },
+        { word: "فراشة", answer: "ف", options: ["ق", "ف", "غ", "ع"] },
+      ];
+
+      let current = 0;
+      let score = 0;
+      let answered = false;
+      let audioContext = null;
+
+      const wordElement = document.getElementById("word");
+      const optionsElement = document.getElementById("options");
+      const feedbackElement = document.getElementById("feedback");
+      const nextButton = document.getElementById("nextButton");
+      const speakButton = document.getElementById("speakButton");
+
+      // نطق الكلمة باللغة العربية
+      function speakWord() {
+        if (!("speechSynthesis" in window)) {
+          alert("المتصفح لا يدعم تشغيل النطق الصوتي");
+          return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const word = questions[current].word;
+        const utterance = new SpeechSynthesisUtterance(word);
+
+        utterance.lang = "ar";
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      speakButton.addEventListener("click", speakWord);
+
+      // إنشاء مؤثرات صوتية بسيطة باستخدام المتصفح
+      function playSound(type) {
+        try {
+          const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+          if (!AudioContextClass) return;
+
+          if (!audioContext) {
+            audioContext = new AudioContextClass();
+          }
+
+          if (audioContext.state === "suspended") {
+            audioContext.resume();
+          }
+
+          const notes = {
+            correct: [523.25, 659.25, 783.99],
+            wrong: [440, 330],
+            next: [600],
+            finish: [523.25, 659.25, 783.99, 1046.5],
+          };
+
+          const frequencies = notes[type];
+          if (!frequencies) return;
+
+          frequencies.forEach((frequency, index) => {
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+
+            const start = audioContext.currentTime + index * 0.13;
+
+            oscillator.type = "sine";
+            oscillator.frequency.value = frequency;
+
+            gain.gain.setValueAtTime(0.0001, start);
+            gain.gain.exponentialRampToValueAtTime(0.8, start + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
+
+            oscillator.connect(gain);
+            gain.connect(audioContext.destination);
+
+            oscillator.start(start);
+            oscillator.stop(start + 0.2);
+          });
+        } catch (error) {
+          console.log("تعذر تشغيل المؤثر الصوتي:", error);
+        }
+      }
+
+      function showQuestion() {
+        answered = false;
+
+        const question = questions[current];
+
+        document.getElementById("progress").textContent =
+          `السؤال ${current + 1} من ${questions.length}`;
+
+        wordElement.textContent = question.word;
+        feedbackElement.textContent = "";
+        nextButton.disabled = true;
+
+        window.speechSynthesis?.cancel();
+
+        optionsElement.innerHTML = "";
+
+        question.options.forEach((letter) => {
+          const button = document.createElement("button");
+
+          button.className = "option";
+          button.textContent = letter;
+
+          button.addEventListener("click", () => {
+            checkAnswer(letter, button);
+          });
+
+          optionsElement.appendChild(button);
+        });
+      }
+
+      function checkAnswer(selected, button) {
+        if (answered) return;
+
+        answered = true;
+
+        const correct = questions[current].answer;
+
+        document.querySelectorAll(".option").forEach((option) => {
+          option.disabled = true;
+
+          if (option.textContent === correct) {
+            option.classList.add("correct-answer");
+          }
+        });
+
+        if (selected === correct) {
+          score++;
+
+          document.getElementById("score").textContent = score;
+
+          feedbackElement.textContent = "🎉 إجابة صحيحة! أحسنت!";
+          feedbackElement.style.color = "#16a879";
+
+          button.classList.add("correct-answer");
+
+          playSound("correct");
+
+          window.AdventureApp?.updatePoints(5);
+        } else {
+          feedbackElement.textContent = `ليست الإجابة الصحيحة. الحرف الصحيح هو ${correct} 💪`;
+
+          feedbackElement.style.color = "#e07838";
+
+          button.classList.add("wrong-answer");
+
+          playSound("wrong");
+        }
+
+        nextButton.disabled = false;
+      }
+
+      nextButton.addEventListener("click", () => {
+        current++;
+
+        if (current < questions.length) {
+          playSound("next");
+          showQuestion();
+        } else {
+          finishGame();
+        }
+      });
+
+      function finishGame() {
+        playSound("finish");
+
+        window.speechSynthesis?.cancel();
+
+        wordElement.textContent = "🏆";
+        optionsElement.innerHTML = "";
+        speakButton.style.display = "none";
+
+        document.querySelector(".question").textContent = "انتهت المغامرة!";
+
+        feedbackElement.textContent = `لقد حصلت على ${score} من ${questions.length} إجابات صحيحة!`;
+
+        nextButton.textContent = "العب مرة أخرى";
+        nextButton.disabled = false;
+
+        if (score === questions.length) {
+          window.AdventureApp?.completeLesson("games");
+        }
+
+        nextButton.onclick = () => {
+          current = 0;
+          score = 0;
+
+          document.getElementById("score").textContent = "0";
+
+          document.querySelector(".question").textContent =
+            "ما أول حرف في هذه الكلمة؟";
+
+          nextButton.textContent = "السؤال التالي";
+          nextButton.onclick = null;
+
+          speakButton.style.display = "inline-block";
+
+          playSound("next");
+          showQuestion();
+        };
+      }
+
+      showQuestion();
+    </script>
+  </body>
+</html>

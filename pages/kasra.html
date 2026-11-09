@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم الكسرة | مغامرات الحروف</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f3f7ff;
+            color: #26334a;
+            margin: 0;
+        }
+
+        .lesson-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 18px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #5546d8;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 13px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .heading {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .heading h1 {
+            color: #5546d8;
+            font-size: 38px;
+        }
+
+        .heading p {
+            color: #68758a;
+        }
+
+        .rule-card, .practice-card {
+            background: white;
+            padding: 25px;
+            border-radius: 22px;
+            margin-bottom: 22px;
+            text-align: center;
+            box-shadow: 0 5px 18px #26334a12;
+        }
+
+        .kasra-mark {
+            color: #3289dc;
+            font-size: 65px;
+            font-weight: 900;
+        }
+
+        .letters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .letter-card {
+            background: #eaf4ff;
+            border-radius: 18px;
+            padding: 14px 8px;
+            transition: .2s;
+        }
+
+        .letter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 15px #00000012;
+        }
+
+        .letter {
+            display: block;
+            color: #5546d8;
+            font-size: 45px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .word {
+            display: block;
+            color: #3289dc;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .listen-button {
+            background: #3289dc;
+            color: white;
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .listen-button:hover {
+            background: #216db5;
+        }
+
+        .listen-all {
+            background: #16a879;
+            color: white;
+            border: 0;
+            border-radius: 13px;
+            padding: 13px 24px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .listen-all:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .question {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .option {
+            min-width: 90px;
+            background: #eef0ff;
+            color: #5546d8;
+            border: 2px solid transparent;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 30px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            border-color: #5546d8;
+        }
+
+        .option:disabled {
+            cursor: not-allowed;
+            opacity: .8;
+        }
+
+        .feedback {
+            min-height: 35px;
+            font-weight: bold;
+            margin-top: 18px;
+        }
+
+        .next-button {
+            background: #16a879;
+            color: white;
+            border: 0;
+            padding: 12px 25px;
+            border-radius: 13px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .next-button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .score {
+            color: #5546d8;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .heading h1 {
+                font-size: 29px;
+            }
+
+            .lesson-page {
+                padding: 20px 12px;
+            }
+
+            .rule-card, .practice-card {
+                padding: 18px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="lesson-page">
+
+    <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+
+    <header class="heading">
+        <h1>💧 مغامرة الكسرة</h1>
+        <p>تعلم الحروف العربية مع الكسرة واستمع إلى صوت كل حرف!</p>
+    </header>
+
+    <section class="rule-card">
+        <h2>📚 ما هي الكسرة؟</h2>
+        <div class="kasra-mark">ِ</div>
+        <p>
+            الكسرة علامة توضع أسفل الحرف، وتجعلنا ننطق صوتًا قصيرًا،
+            مثل: بِ، تِ، جِ.
+        </p>
+
+        <button class="listen-button" onclick="speakArabic('بِ')">
+            🔊 استمع إلى مثال
+        </button>
+    </section>
+
+    <section class="rule-card">
+        <h2>🔤 جميع الحروف مع الكسرة</h2>
+        <p>اضغط على زر الاستماع أسفل كل حرف لتسمع صوته.</p>
+
+        <div class="letters-grid" id="lettersGrid"></div>
+
+        <button class="listen-all" id="listenAllButton">
+            🔊 استمع إلى جميع الحروف
+        </button>
+    </section>
+
+    <section class="practice-card">
+        <h2>🎮 اختبر معلوماتك</h2>
+
+        <p class="question" id="question">
+            أي حرف عليه كسرة؟
+        </p>
+
+        <div class="options" id="options"></div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="score" id="score"></div>
+
+        <button class="next-button" id="nextButton" disabled>
+            السؤال التالي
+        </button>
+    </section>
+
+</main>
+
+<script src="../js/main.js"></script>
+
+<script>
+    // جميع الحروف العربية مع الكسرة وأمثلة عليها
+    const letters = [
+        { letter: "إِ", word: "إِبْرَة" },
+        { letter: "بِ", word: "بِنْت" },
+        { letter: "تِ", word: "تِمْسَاح" },
+        { letter: "ثِ", word: "ثِمَار" },
+        { letter: "جِ", word: "جِسْر" },
+        { letter: "حِ", word: "حِصَان" },
+        { letter: "خِ", word: "خِرْبَة" },
+        { letter: "دِ", word: "دِيك" },
+        { letter: "ذِ", word: "ذِئْب" },
+        { letter: "رِ", word: "رِيشَة" },
+        { letter: "زِ", word: "زِينَة" },
+        { letter: "سِ", word: "سِوَار" },
+        { letter: "شِ", word: "شِتَاء" },
+        { letter: "صِ", word: "صِفْر" },
+        { letter: "ضِ", word: "ضِرْس" },
+        { letter: "طِ", word: "طِفْل" },
+        { letter: "ظِ", word: "ظِلّ" },
+        { letter: "عِ", word: "عِنَب" },
+        { letter: "غِ", word: "غِذَاء" },
+        { letter: "فِ", word: "فِيل" },
+        { letter: "قِ", word: "قِطَّة" },
+        { letter: "كِ", word: "كِتَاب" },
+        { letter: "لِ", word: "لِسَان" },
+        { letter: "مِ", word: "مِفْتَاح" },
+        { letter: "نِ", word: "نِسْر" },
+        { letter: "هِ", word: "هِلال" },
+        { letter: "وِ", word: "وِسَادَة" },
+        { letter: "يِ", word: "يَمِين" }
+    ];
+
+    // النطق العربي
+    function speakArabic(text) {
+        if (!("speechSynthesis" in window)) {
+            alert("المتصفح لا يدعم خاصية النطق الصوتي.");
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        const voices = window.speechSynthesis.getVoices();
+
+        const arabicVoice =
+            voices.find(voice => voice.lang === "ar-EG") ||
+            voices.find(voice => voice.lang.startsWith("ar"));
+
+        if (arabicVoice) {
+            utterance.voice = arabicVoice;
+        }
+
+        utterance.lang = arabicVoice?.lang || "ar-EG";
+        utterance.rate = 0.75;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // عرض الحروف
+    const lettersGrid = document.getElementById("lettersGrid");
+
+    letters.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "letter-card";
+
+        const letter = document.createElement("strong");
+        letter.className = "letter";
+        letter.textContent = item.letter;
+
+        const word = document.createElement("span");
+        word.className = "word";
+        word.textContent = item.word;
+
+        const button = document.createElement("button");
+        button.className = "listen-button";
+        button.textContent = "🔊 اسمع الحرف";
+
+        button.addEventListener("click", () => {
+            speakArabic(item.letter);
+        });
+
+        const wordButton = document.createElement("button");
+        wordButton.className = "listen-button";
+        wordButton.textContent = "اسمع الكلمة";
+        wordButton.style.marginTop = "7px";
+
+        wordButton.addEventListener("click", () => {
+            speakArabic(item.word);
+        });
+
+        card.appendChild(letter);
+        card.appendChild(word);
+        card.appendChild(button);
+        card.appendChild(document.createElement("br"));
+        card.appendChild(wordButton);
+
+        lettersGrid.appendChild(card);
+    });
+
+    // الاستماع لجميع الحروف بالترتيب
+    document.getElementById("listenAllButton")
+        .addEventListener("click", async () => {
+
+            if (!("speechSynthesis" in window)) {
+                alert("المتصفح لا يدعم النطق الصوتي.");
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+
+            const button = document.getElementById("listenAllButton");
+            button.disabled = true;
+            button.textContent = "🔊 جاري نطق الحروف...";
+
+            for (const item of letters) {
+                await new Promise(resolve => {
+                    const utterance = new SpeechSynthesisUtterance(item.letter);
+                    const voices = window.speechSynthesis.getVoices();
+
+                    const voice =
+                        voices.find(v => v.lang === "ar-EG") ||
+                        voices.find(v => v.lang.startsWith("ar"));
+
+                    if (voice) utterance.voice = voice;
+
+                    utterance.lang = voice?.lang || "ar-EG";
+                    utterance.rate = 0.75;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+
+                    utterance.onend = resolve;
+                    utterance.onerror = resolve;
+
+                    window.speechSynthesis.speak(utterance);
+                });
+            }
+
+            button.disabled = false;
+            button.textContent = "🔊 استمع إلى جميع الحروف";
+        });
+
+    // أسئلة الاختبار
+    const questions = [
+        { options: ["بَ", "بِ", "بُ"], answer: "بِ" },
+        { options: ["مُ", "مَ", "مِ"], answer: "مِ" },
+        { options: ["سِ", "سُ", "سَ"], answer: "سِ" },
+        { options: ["قَ", "قِ", "قُ"], answer: "قِ" },
+        { options: ["تُ", "تَ", "تِ"], answer: "تِ" },
+        { options: ["جَ", "جِ", "جُ"], answer: "جِ" },
+        { options: ["فِ", "فَ", "فُ"], answer: "فِ" },
+        { options: ["كَ", "كِ", "كُ"], answer: "كِ" },
+        { options: ["نُ", "نِ", "نَ"], answer: "نِ" },
+        { options: ["رِ", "رُ", "رَ"], answer: "رِ" }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    const optionsContainer = document.getElementById("options");
+    const feedback = document.getElementById("feedback");
+    const nextButton = document.getElementById("nextButton");
+    const scoreElement = document.getElementById("score");
+
+    function showQuestion() {
+        answered = false;
+        feedback.textContent = "";
+        scoreElement.textContent = `النقاط: ${score}`;
+        nextButton.disabled = true;
+
+        const question = questions[currentQuestion];
+
+        document.getElementById("question").textContent =
+            `السؤال ${currentQuestion + 1} من ${questions.length}: اختر الحرف الذي عليه كسرة`;
+
+        optionsContainer.innerHTML = "";
+
+        question.options.forEach(option => {
+            const button = document.createElement("button");
+            button.className = "option";
+            button.textContent = option;
+
+            button.addEventListener("click", () => checkAnswer(option, button));
+
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selected, selectedButton) {
+        if (answered) return;
+
+        answered = true;
+
+        document.querySelectorAll(".option").forEach(button => {
+            button.disabled = true;
+        });
+
+        if (selected === questions[currentQuestion].answer) {
+            score++;
+
+            feedback.textContent = "🎉 إجابة صحيحة! أحسنت!";
+            feedback.style.color = "#16a879";
+            selectedButton.style.background = "#d8f8e9";
+
+            speakArabic("أحسنت! إجابة صحيحة");
+        } else {
+            feedback.textContent = "حاول مرة أخرى في السؤال القادم! 💪";
+            feedback.style.color = "#e07838";
+            selectedButton.style.background = "#ffe0e0";
+
+            speakArabic("حاول مرة أخرى");
+        }
+
+        scoreElement.textContent = `النقاط: ${score}`;
+        nextButton.disabled = false;
+    }
+
+    nextButton.addEventListener("click", () => {
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            showQuestion();
+        } else {
+            finishQuiz();
+        }
+    });
+
+    function finishQuiz() {
+        optionsContainer.innerHTML = "";
+
+        document.getElementById("question").textContent =
+            `انتهى الاختبار! نتيجتك ${score} من ${questions.length} ⭐`;
+
+        feedback.textContent =
+            score === questions.length
+                ? "🏆 ممتاز! أجبت عن جميع الأسئلة بشكل صحيح!"
+                : "👏 أحسنت! استمر في التعلم وستصبح بطل الحروف!";
+
+        feedback.style.color = "#16a879";
+
+        scoreElement.textContent = `نتيجتك: ${score} / ${questions.length}`;
+
+        nextButton.textContent = "إعادة الاختبار";
+        nextButton.disabled = false;
+
+        if (score === questions.length) {
+            window.AdventureApp?.completeLesson("kasra");
+        }
+
+        nextButton.onclick = () => {
+            currentQuestion = 0;
+            score = 0;
+            nextButton.textContent = "السؤال التالي";
+            nextButton.onclick = null;
+            showQuestion();
+        };
+    }
+
+    showQuestion();
+</script>
+
+</body>
+</html>

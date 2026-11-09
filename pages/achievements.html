@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنجازاتي | مغامرات الحروف</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f3f7ff;
+            color: #26334a;
+            margin: 0;
+        }
+
+        .achievements-page {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 18px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #5546d8;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 13px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .heading {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .heading h1 {
+            color: #5546d8;
+            font-size: 38px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 18px #26334a12;
+        }
+
+        .stat-card .emoji {
+            font-size: 42px;
+        }
+
+        .stat-card strong {
+            display: block;
+            color: #5546d8;
+            font-size: 30px;
+        }
+
+        .section-card {
+            background: white;
+            padding: 25px;
+            border-radius: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 5px 18px #26334a12;
+        }
+
+        .section-card h2 {
+            color: #5546d8;
+        }
+
+        .badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+        }
+
+        .badge-item {
+            background: #fff5dd;
+            border-radius: 18px;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .badge-item.locked {
+            background: #f0f1f5;
+            opacity: 0.7;
+        }
+
+        .badge-item .emoji {
+            font-size: 42px;
+            display: block;
+        }
+
+        .badge-item strong {
+            display: block;
+            margin-top: 8px;
+        }
+
+        .badge-item small {
+            color: #8790a0;
+        }
+
+        .completed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .completed-item {
+            background: #effaf4;
+            border-radius: 13px;
+            padding: 13px 16px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .empty {
+            color: #8790a0;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .reset-button {
+            background: #ffe8e8;
+            color: #d34b4b;
+            border: 0;
+            border-radius: 13px;
+            padding: 12px 22px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .heading h1 {
+                font-size: 29px;
+            }
+
+            .section-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="achievements-page">
+
+    <a href="../index.html" class="back-button">← العودة للرئيسية</a>
+
+    <header class="heading">
+        <h1>🏆 إنجازاتي</h1>
+        <p>شاهد تقدمك والنجوم التي جمعتها في رحلتك التعليمية!</p>
+    </header>
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <div class="emoji">⭐</div>
+            <strong id="points">0</strong>
+            <span>إجمالي النقاط</span>
+        </div>
+
+        <div class="stat-card">
+            <div class="emoji">📚</div>
+            <strong id="lessons">0</strong>
+            <span>الدروس المكتملة</span>
+        </div>
+
+        <div class="stat-card">
+            <div class="emoji">🏅</div>
+            <strong id="badgesCount">0</strong>
+            <span>الإنجازات</span>
+        </div>
+
+    </section>
+
+    <section class="section-card">
+        <h2>🎖️ شاراتك</h2>
+        <div class="badges" id="badges"></div>
+    </section>
+
+    <section class="section-card">
+        <h2>📖 الدروس التي أنهيتها</h2>
+        <div class="completed-list" id="completedList"></div>
+    </section>
+
+    <section class="section-card" style="text-align:center">
+        <h2>🌈 واصل التعلم!</h2>
+        <p>كل حرف تتعلمه يقربك من إتقان اللغة العربية.</p>
+
+        <button class="reset-button" id="resetButton">
+            إعادة ضبط التقدم
+        </button>
+    </section>
+
+</main>
+
+<script src="../js/main.js"></script>
+
+<script>
+    const lessonNames = {
+        "fatha": "مغامرة الفتحة",
+        "kasra": "مغامرة الكسرة",
+        "damma": "مغامرة الضمة",
+        "games": "مدينة الألعاب"
+    };
+
+    const badgeDefinitions = [
+        {
+            id: "البداية الرائعة",
+            emoji: "🌟",
+            name: "البداية الرائعة",
+            description: "أكملت أول درس"
+        },
+        {
+            id: "بطل التعلم",
+            emoji: "🏅",
+            name: "بطل التعلم",
+            description: "أكملت 5 دروس"
+        },
+        {
+            id: "خبير الحروف",
+            emoji: "🔤",
+            name: "خبير الحروف",
+            description: "أكملت 10 دروس"
+        },
+        {
+            id: "جامع النقاط",
+            emoji: "💎",
+            name: "جامع النقاط",
+            description: "جمعت 100 نقطة"
+        }
+    ];
+
+    function getLessonName(id) {
+        if (lessonNames[id]) return lessonNames[id];
+
+        if (id.startsWith("letter-")) {
+            return "تعلم حرف " + id.replace("letter-", "");
+        }
+
+        if (id.startsWith("writing-")) {
+            return "كتابة حرف " + id.replace("writing-", "");
+        }
+
+        return id;
+    }
+
+    function renderAchievements() {
+        const progress = window.AdventureApp.getProgress();
+
+        document.getElementById("points").textContent =
+            progress.points || 0;
+
+        document.getElementById("lessons").textContent =
+            progress.completedLessons.length;
+
+        document.getElementById("badgesCount").textContent =
+            progress.badges.length;
+
+        const completedList = document.getElementById("completedList");
+
+        completedList.innerHTML = "";
+
+        if (progress.completedLessons.length === 0) {
+            completedList.innerHTML =
+                '<p class="empty">لم تكمل أي درس حتى الآن. ابدأ مغامرتك! 🚀</p>';
+        } else {
+            progress.completedLessons.forEach(lesson => {
+                const item = document.createElement("div");
+
+                item.className = "completed-item";
+
+                const name = document.createElement("span");
+                name.textContent = "📘 " + getLessonName(lesson);
+
+                const status = document.createElement("strong");
+                status.textContent = "✓ مكتمل";
+
+                item.append(name, status);
+                completedList.appendChild(item);
+            });
+        }
+
+        const badgesContainer = document.getElementById("badges");
+        badgesContainer.innerHTML = "";
+
+        badgeDefinitions.forEach(badge => {
+            const unlocked = progress.badges.includes(badge.id);
+
+            const item = document.createElement("div");
+            item.className = "badge-item" + (unlocked ? "" : " locked");
+
+            item.innerHTML = `
+                <span class="emoji">${unlocked ? badge.emoji : "🔒"}</span>
+                <strong>${badge.name}</strong>
+                <small>${unlocked ? "تم الحصول عليها" : badge.description}</small>
+            `;
+
+            badgesContainer.appendChild(item);
+        });
+    }
+
+    document.getElementById("resetButton").addEventListener("click", () => {
+        const confirmed = confirm(
+            "هل أنت متأكد أنك تريد مسح جميع النقاط والدروس المحفوظة؟"
+        );
+
+        if (!confirmed) return;
+
+        localStorage.removeItem("arabicAdventureProgress");
+
+        renderAchievements();
+    });
+
+    renderAchievements();
+</script>
+
+</body>
+</html>

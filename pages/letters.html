@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تعلم الحروف العربية | مغامرات الحروف</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Cairo", sans-serif;
+        background: #f3f7ff;
+        margin: 0;
+        color: #26334a;
+      }
+
+      .letters-page {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 18px;
+      }
+
+      .letters-heading {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .letters-heading h1 {
+        color: #5546d8;
+        font-size: clamp(28px, 5vw, 42px);
+        margin-bottom: 8px;
+      }
+
+      .letters-heading p {
+        color: #667085;
+      }
+
+      .top-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 24px;
+      }
+
+      .letters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+        gap: 15px;
+      }
+
+      .letter-card {
+        border: 0;
+        border-radius: 20px;
+        background: white;
+        min-height: 125px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px #26334a12;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+        font-family: inherit;
+        color: #5546d8;
+      }
+
+      .letter-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 22px #5546d82b;
+      }
+
+      .letter-card:focus-visible,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #f19a38;
+        outline-offset: 3px;
+      }
+
+      .letter-card span {
+        display: block;
+        font-size: 48px;
+        font-weight: 900;
+      }
+
+      .letter-card small {
+        color: #8490a5;
+      }
+
+      .letter-card.selected {
+        background: #5546d8;
+        color: white;
+      }
+
+      .letter-card.selected small {
+        color: white;
+      }
+
+      .letter-details {
+        background: white;
+        border-radius: 24px;
+        padding: 25px;
+        margin-top: 30px;
+        text-align: center;
+        box-shadow: 0 5px 20px #26334a12;
+      }
+
+      .big-letter {
+        font-size: 85px;
+        color: #5546d8;
+        font-weight: 900;
+        line-height: 1.3;
+      }
+
+      .letter-name {
+        color: #26334a;
+        font-size: 25px;
+        font-weight: 800;
+        margin: 5px 0;
+      }
+
+      .example-word {
+        font-size: 25px;
+        font-weight: 800;
+        color: #f19a38;
+        margin: 10px;
+      }
+
+      .back-button {
+        display: inline-block;
+        background: #5546d8;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 14px;
+        text-decoration: none;
+        margin-bottom: 25px;
+        font-weight: bold;
+      }
+
+      .complete-button,
+      .sound-button {
+        border: 0;
+        padding: 12px 22px;
+        border-radius: 12px;
+        font-family: inherit;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 8px 5px;
+        transition: transform 0.2s;
+      }
+
+      .complete-button {
+        background: #16a879;
+        color: white;
+      }
+
+      .sound-button {
+        background: #eeeaff;
+        color: #5546d8;
+        font-size: 16px;
+      }
+
+      .complete-button:hover,
+      .sound-button:hover {
+        transform: translateY(-3px);
+      }
+
+      .status {
+        color: #16a879;
+        font-weight: bold;
+        min-height: 28px;
+        margin-top: 10px;
+      }
+
+      .audio-note {
+        color: #8490a5;
+        font-size: 12px;
+        margin-top: 15px;
+        line-height: 1.8;
+      }
+
+      .audio-status {
+        color: #667085;
+        font-size: 13px;
+        min-height: 24px;
+        text-align: center;
+        margin: 8px 0 16px;
+      }
+
+      @media (max-width: 500px) {
+        .letters-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .letter-card span {
+          font-size: 40px;
+        }
+
+        .letter-card {
+          min-height: 110px;
+        }
+
+        .letter-details {
+          padding: 18px 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="letters-page">
+      <a class="back-button" href="../index.html"> ← العودة للرئيسية </a>
+
+      <header class="letters-heading">
+        <h1>🌈 عالم الحروف العربية</h1>
+        <p>اضغط على أي حرف وتعلّم اسمه واستمع إلى نطقه!</p>
+      </header>
+
+      <div class="top-actions">
+        <button class="sound-button" id="humanAlphabetButton" type="button">
+          🎙️ اسمع الأبجدية كاملة بصوت بشري
+        </button>
+
+        <button class="sound-button" id="stopAudioButton" type="button">
+          ⏹️ إيقاف الصوت
+        </button>
+      </div>
+
+      <audio
+        id="humanAlphabetAudio"
+        preload="none"
+        src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Arabic_alphabet_%2831s%2C_80kbps%29.ogg"
+      ></audio>
+
+      <p class="audio-status" id="audioStatus" aria-live="polite"></p>
+
+      <section
+        class="letters-grid"
+        id="lettersGrid"
+        aria-label="الحروف العربية"
+      ></section>
+
+      <section class="letter-details" id="letterDetails" aria-live="polite">
+        <div class="big-letter">أ</div>
+        <h2>اختر حرفًا من الأعلى</h2>
+        <p>هنا ستتعلم شكل الحرف واسمه والكلمة التي تبدأ به.</p>
+      </section>
+
+      <p class="audio-note">
+        زر الأبجدية الكاملة يشغّل تسجيلًا بشريًا مصريًا. أما نطق كل حرف وكلمة
+        منفردًا فيستخدم الصوت العربي المتاح في المتصفح.
+      </p>
+
+      <p class="audio-note">
+        التسجيل البشري: M. Abuhelwa — Public Domain.
+        <a
+          href="https://commons.wikimedia.org/wiki/File:Arabic_alphabet_(31s,_80kbps).ogg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          صفحة التسجيل والترخيص
+        </a>
+      </p>
+    </main>
+
+    <script src="../js/main.js"></script>
+
+    <script>
+      "use strict";
+
+      const letters = [
+        { letter: "أ", name: "أَلِف", word: "أَسَد" },
+        { letter: "ب", name: "بَاء", word: "بَطَّة" },
+        { letter: "ت", name: "تَاء", word: "تُفَّاحَة" },
+        { letter: "ث", name: "ثَاء", word: "ثَعْلَب" },
+        { letter: "ج", name: "جِيم", word: "جَمَل" },
+        { letter: "ح", name: "حَاء", word: "حِصَان" },
+        { letter: "خ", name: "خَاء", word: "خَرُوف" },
+        { letter: "د", name: "دَال", word: "دُبّ" },
+        { letter: "ذ", name: "ذَال", word: "ذُرَّة" },
+        { letter: "ر", name: "رَاء", word: "رُمَّان" },
+        { letter: "ز", name: "زَاي", word: "زَهْرَة" },
+        { letter: "س", name: "سِين", word: "سَمَكَة" },
+        { letter: "ش", name: "شِين", word: "شَمْس" },
+        { letter: "ص", name: "صَاد", word: "صَقْر" },
+        { letter: "ض", name: "ضَاد", word: "ضِفْدَع" },
+        { letter: "ط", name: "طَاء", word: "طَائِرَة" },
+        { letter: "ظ", name: "ظَاء", word: "ظَرْف" },
+        { letter: "ع", name: "عَيْن", word: "عِنَب" },
+        { letter: "غ", name: "غَيْن", word: "غَزَال" },
+        { letter: "ف", name: "فَاء", word: "فَرَاشَة" },
+        { letter: "ق", name: "قَاف", word: "قَمَر" },
+        { letter: "ك", name: "كَاف", word: "كِتَاب" },
+        { letter: "ل", name: "لَام", word: "لَيْمُون" },
+        { letter: "م", name: "مِيم", word: "مَوْز" },
+        { letter: "ن", name: "نُون", word: "نَحْلَة" },
+        { letter: "هـ", name: "هَاء", word: "هِلال" },
+        { letter: "و", name: "وَاو", word: "وَرْدَة" },
+        { letter: "ي", name: "يَاء", word: "يَد" },
+      ];
+
+      const grid = document.getElementById("lettersGrid");
+      const details = document.getElementById("letterDetails");
+      const humanAudio = document.getElementById("humanAlphabetAudio");
+      const audioStatus = document.getElementById("audioStatus");
+
+      let arabicVoice = null;
+
+      function loadArabicVoice() {
+        if (!("speechSynthesis" in window)) return;
+
+        const voices = window.speechSynthesis.getVoices();
+
+        arabicVoice =
+          voices.find(
+            (voice) => voice.lang && voice.lang.toLowerCase() === "ar-eg",
+          ) ||
+          voices.find(
+            (voice) => voice.lang && voice.lang.toLowerCase().startsWith("ar"),
+          ) ||
+          null;
+      }
+
+      if ("speechSynthesis" in window) {
+        loadArabicVoice();
+        window.speechSynthesis.onvoiceschanged = loadArabicVoice;
+      }
+
+      function stopAllAudio() {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        humanAudio.pause();
+        humanAudio.currentTime = 0;
+        audioStatus.textContent = "تم إيقاف الصوت.";
+      }
+
+      function speakArabic(text) {
+        if (!("speechSynthesis" in window)) {
+          audioStatus.textContent = "المتصفح لا يدعم النطق الصوتي.";
+          return;
+        }
+
+        humanAudio.pause();
+        humanAudio.currentTime = 0;
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        utterance.lang = arabicVoice ? arabicVoice.lang : "ar";
+        utterance.rate = 0.78;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        if (arabicVoice) {
+          utterance.voice = arabicVoice;
+        }
+
+        utterance.onstart = () => {
+          audioStatus.textContent = "يتم تشغيل النطق العربي...";
+        };
+
+        utterance.onend = () => {
+          audioStatus.textContent = "";
+        };
+
+        utterance.onerror = () => {
+          audioStatus.textContent = "تعذّر تشغيل النطق على هذا الجهاز.";
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      function playHumanAlphabet() {
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+        }
+
+        humanAudio.pause();
+        humanAudio.currentTime = 0;
+
+        audioStatus.textContent = "يتم تشغيل التسجيل البشري للأبجدية...";
+
+        humanAudio.play().catch(() => {
+          audioStatus.textContent =
+            "تعذّر تحميل التسجيل. تحقق من اتصال الإنترنت ثم حاول مرة أخرى.";
+        });
+      }
+
+      humanAudio.addEventListener("ended", () => {
+        audioStatus.textContent = "انتهى تسجيل الأبجدية.";
+      });
+
+      humanAudio.addEventListener("error", () => {
+        audioStatus.textContent = "تعذّر تحميل التسجيل البشري من المصدر.";
+      });
+
+      document
+        .getElementById("humanAlphabetButton")
+        .addEventListener("click", playHumanAlphabet);
+
+      document
+        .getElementById("stopAudioButton")
+        .addEventListener("click", stopAllAudio);
+
+      function createLetterCard(item, index) {
+        const card = document.createElement("button");
+
+        card.type = "button";
+        card.className = "letter-card";
+        card.setAttribute("aria-label", `الحرف ${item.letter}`);
+
+        card.innerHTML = `
+        <span>${item.letter}</span>
+        <small>الحرف رقم ${index + 1}</small>
+      `;
+
+        card.addEventListener("click", () => {
+          stopAllAudio();
+
+          document.querySelectorAll(".letter-card").forEach((element) => {
+            element.classList.remove("selected");
+          });
+
+          card.classList.add("selected");
+
+          details.innerHTML = `
+          <div class="big-letter">${item.letter}</div>
+
+          <div class="letter-name">${item.name}</div>
+
+          <h2>حرف ${item.letter}</h2>
+
+          <div class="example-word">${item.word}</div>
+
+          <p>استمع إلى اسم الحرف، ثم استمع إلى مثال عليه.</p>
+
+          <button class="sound-button" id="letterSound" type="button">
+            🔊 اسمع اسم الحرف
+          </button>
+
+          <button class="sound-button" id="wordSound" type="button">
+            🗣️ اسمع الكلمة
+          </button>
+
+          <br>
+
+          <button class="complete-button" id="completeButton" type="button">
+            ⭐ أنهيت تعلم الحرف
+          </button>
+
+          <div class="status" id="status" aria-live="polite"></div>
+        `;
+
+          document
+            .getElementById("letterSound")
+            .addEventListener("click", () => {
+              speakArabic(item.name);
+            });
+
+          document.getElementById("wordSound").addEventListener("click", () => {
+            speakArabic(item.word);
+          });
+
+          document
+            .getElementById("completeButton")
+            .addEventListener("click", () => {
+              const status = document.getElementById("status");
+
+              if (
+                window.AdventureApp &&
+                typeof window.AdventureApp.completeLesson === "function"
+              ) {
+                const completed = window.AdventureApp.completeLesson(
+                  "letter-" + item.letter,
+                );
+
+                status.textContent = completed
+                  ? "🎉 أحسنت! تم تسجيل إنجازك."
+                  : "⭐ يبدو أنك أنهيت هذا الحرف من قبل!";
+              } else {
+                status.textContent =
+                  "نظام النقاط غير متصل. تأكد من تحميل ملف main.js.";
+              }
+            });
+        });
+
+        grid.appendChild(card);
+      }
+
+      letters.forEach(createLetterCard);
+    </script>
+  </body>
+</html>
